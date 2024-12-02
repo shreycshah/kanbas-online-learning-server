@@ -1,7 +1,6 @@
 import Database from "../Database/index.js";
 import model from "./model.js";
 export function findModulesForCourse(courseId) {
-    console.log(model.find({ course: courseId }));
     return model.find({ course: courseId });
     // const { modules } = Database;
     // return modules.filter((module) => module.course === courseId);
