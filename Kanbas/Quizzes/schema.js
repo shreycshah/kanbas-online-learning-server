@@ -2,18 +2,17 @@ import mongoose from "mongoose";
 
 // Define Question Schema
 const questionSchema = new mongoose.Schema({
-    q_id: { type: String, required: true },
     type: {
         type: String,
         required: true,
         enum: ["mcq", "tf", "fib"], // Only allow specific question types
     },
-    title: { type: String, required: true },
-    points: { type: Number, required: true },
+    title: { type: String },
+    points: { type: Number },
     question: { type: String, required: true },
     choices: [ // For mcq questions
         {
-            option: { type: String, required: false },
+            answer: { type: String, required: false },
             isCorrect: { type: Boolean, required: false },
         },
     ],
@@ -41,17 +40,15 @@ const settingsSchema = new mongoose.Schema({
 
 // Define Dates Schema
 const datesSchema = new mongoose.Schema({
-    dueDate: String,
-    availableDate: String,
-    availableTime: String,
-    dueTime: String,
-    untilDate: String,
-    untilTime: String
+    due: String,
+    available: String,
+    until: String
 });
 
 // Define Quiz Schema
 const schema = new mongoose.Schema(
     {
+        _id: { type: String },
         title: String,
         course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
         quizType: {
