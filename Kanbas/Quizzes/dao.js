@@ -18,3 +18,8 @@ export async function findQuizForUser(quizId) {
     const data= await model.findOne({ _id: quizId});
     return data
 }
+
+export async function findQuizById(quizId){
+    const quiz = await model.findOne({ _id: quizId });
+    return quiz;
+}
