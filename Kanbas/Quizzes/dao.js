@@ -14,3 +14,8 @@ export function deleteQuiz(quizId) {
 export function updateQuiz(quizId, quizUpdates) {
     return model.updateOne({ _id: quizId }, quizUpdates);
 }
+
+export async function findQuizForUser(quizId) {
+    const data= await model.findOne({ _id: quizId});
+    return data
+}
