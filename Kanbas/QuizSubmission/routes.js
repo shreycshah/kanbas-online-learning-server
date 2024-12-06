@@ -38,8 +38,25 @@ export default function QuizSubmissionRoute(app) {
     app.post("/api/quizzes/attempt", async (req, res) => {
         const quizId = req.body.quizId;
         const userId = req.body.userId;
-        const quizzes = await quizSubmissionDao.findAllQuizAttempt(quizId, userId);
-        res.send(quizzes);
+        const attemps = await quizSubmissionDao.findAllQuizAttempt(quizId, userId);
+        res.send(attemps);
+    });
+
+    app.post("/api/quizzes/all-attempts-for-course", async (req, res) => {
+        const courseId = req.body.courseId;
+        const userId = req.body.userId;
+        const fetchedAttempts = await quizSubmissionDao.findAllQuizAttemptForCourse(courseId, userId);
+        console.log("Fetched Attempts: ",fetchedAttempts);
+
+        const latestAttempts = fetchedAttempts.reduce((accumulator, currentAttempt) => {
+            const currentSubmittedDate = new Date(currentAttempt.submittedAt);
+            if (!accumulator[currentAttempt.quiz] || new Date(accumulator[currentAttempt.quiz].submittedAt) < currentSubmittedDate) {
+                accumulator[currentAttempt.quiz] = currentAttempt; // Update with the more recent attempt
+            }
+            return accumulator;
+        }, {});
+
+        res.send(Object.values(latestAttempts));
     });
 
 }

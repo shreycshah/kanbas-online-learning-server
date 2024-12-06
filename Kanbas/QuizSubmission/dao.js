@@ -9,3 +9,9 @@ export async function findAllQuizAttempt(quizId, userId) {
     console.log(data);
     return data;
 }
+
+export async function findAllQuizAttemptForCourse(courseId, userId) {
+    const data = await model.find({ course: courseId, user: userId });
+    console.log(data);
+    return data;
+}
