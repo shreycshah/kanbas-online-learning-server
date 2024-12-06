@@ -14,7 +14,7 @@ const schema = new mongoose.Schema(
         responses: [responseSchema], 
         score: { type: Number },
         timeBegin: { type: String },
-        timeEnd: { type: String, }
+        submittedAt: { type: String }
     },
     { collection: "quiz_submissions" }
 );

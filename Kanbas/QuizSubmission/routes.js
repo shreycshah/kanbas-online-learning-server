@@ -35,11 +35,11 @@ export default function QuizSubmissionRoute(app) {
         res.send(attempt);
     });
 
-}
+    app.post("/api/quizzes/attempt", async (req, res) => {
+        const quizId = req.body.quizId;
+        const userId = req.body.userId;
+        const quizzes = await quizSubmissionDao.findAllQuizAttempt(quizId, userId);
+        res.send(quizzes);
+    });
 
-//     app.get("/api/quizzes/:quizId", async (req, res) => {
-//         const {quizId}=req.params
-//         const quizzes = await quizSubmissionDao.findAllQuizAttempt(new mongoose.Types.ObjectId(quizId), userDetailsData.user)
-//         res.send(quizzes);
-//     });
-// }
+}
