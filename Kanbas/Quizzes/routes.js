@@ -11,4 +11,9 @@ export default function QuizRoutes(app) {
         const status = await quizzesDao.updateQuiz(quizId, quizUpdates);
         res.send(status);
     });
+    app.get("/api/quizzes/:quizId", async(req, res) => {
+        const { quizId } = req.params;
+        const status = await quizzesDao.findQuizById(quizId);
+        res.send(status);
+    });
 }
